@@ -1,7 +1,9 @@
 package com.fastcampus.snsproject.controller.response;
 
 import lombok.AllArgsConstructor;
+import lombok.Getter;
 
+@Getter
 @AllArgsConstructor
 public class Response<T> {
 
@@ -14,5 +16,21 @@ public class Response<T> {
 
     public static <T> Response<T> success(T result) {
         return new Response<>("SUCCESS", result);
+    }
+
+    public static Response<Void> success() {
+        return new Response<Void>("SUCCESS", null);
+    }
+
+    public String toStream() {
+        if(result == null) {
+            return "{" +
+                    "\"resultcode\":" + "\"" + resultCode + "\"," +
+                    "\"result\":" + null + "}";
+        }
+
+        return "{" +
+                "\"resultcode\":" + "\"" + resultCode + "\"," +
+                "\"result\":" + result + "}";
     }
 }
